@@ -3,8 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_forks.xml" value="0.22037037037037038" />
+        <entry key="app/src/main/res/drawable/ic_repository_image.xml" value="0.17685185185185184" />
+        <entry key="app/src/main/res/drawable/ic_search_icon.xml" value="0.17685185185185184" />
+        <entry key="app/src/main/res/drawable/ic_star.xml" value="0.23177083333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.215625" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.215625" />
+        <entry key="app/src/main/res/layout/repositories_list.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/repositories_list_fragment.xml" value="0.43125" />
+        <entry key="app/src/main/res/layout/repository_details_fragment.xml" value="0.3002070393374741" />
+        <entry key="app/src/main/res/layout/repository_item.xml" value="0.33" />
       </map>
     </option>
   </component>
