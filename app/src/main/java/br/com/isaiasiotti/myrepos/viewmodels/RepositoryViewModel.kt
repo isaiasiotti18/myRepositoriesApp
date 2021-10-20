@@ -1,25 +1,48 @@
 package br.com.isaiasiotti.myrepos.viewmodels
 
+import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import br.com.isaiasiotti.myrepos.database.RepositoryDAO
+import br.com.isaiasiotti.myrepos.domain.RepositoryEntity
 import br.com.isaiasiotti.myrepos.network.GithubApi
-import br.com.isaiasiotti.myrepos.network.RepositoryProperty
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
 
-class RepositoryViewModel: ViewModel() {
+class RepositoryViewModel(dataSource: RepositoryDAO, application: Application): ViewModel() {
   
-  private val _userName: String
+  val database = dataSource
   
-  private val repositoryName: String
+  val repositories = database.repositoriesList()
   
-  private val _response = MutableLiveData<RepositoryProperty>()
-  val response: LiveData<RepositoryProperty>
-    get() = _response
-  
-  private fun getGithubRepository() {
-    response.value = GithubApi.retorfitService.getRepository()
+  fun getGithubRepository(full_name: String) {
+    
+    val splitFullName = full_name.split("/")
+    val username = splitFullName[0]
+    val repository = splitFullName[1]
+    
+    viewModelScope.launch {
+      try {
+        
+        val repositoryResult = GithubApi.retrofitService.getRepository(
+          user_param = username,
+          repository_param = repository
+        )
+        
+        insert(repositoryResult)
+        
+        Log.i("Response Repository", "$repositoryResult")
+        
+      } catch (e: Exception) {
+        Log.e("Error", "$e")
+      }
+    }
   }
+  
+  private suspend fun insert(repository: RepositoryEntity) {
+    database.insert(repository)
+  }
+  
 }

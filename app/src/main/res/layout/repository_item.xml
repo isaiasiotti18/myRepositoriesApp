@@ -1,75 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:id="@+id/repository_item"
-  app:cardElevation="2dp"
-  android:layout_marginBottom="6dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <LinearLayout
+  <data>
+    <variable
+      name="repository"
+      type="br.com.isaiasiotti.myrepos.domain.RepositoryEntity" />
+    <import type="android.view.View"/>
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:id="@+id/repository_item"
+    android:layout_marginBottom="20dp">
 
-    <LinearLayout
-      android:layout_width="match_parent"
+
+        <TextView
+          android:id="@+id/tv_repository_name"
+          android:hint="Repository Name"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:text="@{repository.name}"
+          android:textSize="22sp"
+          android:textColor="?android:attr/textColorSecondary"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintBottom_toTopOf="@+id/tv_user_name"/>
+
+        <TextView
+          android:id="@+id/tv_user_name"
+          android:hint="User Name"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:text="@{repository.owner.user_name}"
+          android:textSize="18sp"
+          app:layout_constraintTop_toBottomOf="@+id/tv_repository_name"
+          app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+      android:id="@+id/btn_details"
+      style="@style/Widget.MaterialComponents.Button.TextButton"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_weight="0.5"
-      android:orientation="vertical"
-      android:padding="8dp"
-      android:gravity="left">
+      android:layout_marginStart="25dp"
+      android:layout_marginTop="8dp"
+      android:text="Details"
+      android:textAllCaps="false"
+      android:textColor="@color/btnDetails"
+      app:icon="@drawable/ic_icon_details"
+      app:iconGravity="textEnd"
+      app:iconTint="@color/btnDetails"
+      app:layout_constraintEnd_toStartOf="@+id/btn_delete"
+      app:layout_constraintHorizontal_bias="1.0"
+      app:layout_constraintStart_toEndOf="@+id/tv_repository_name"
+      app:layout_constraintTop_toTopOf="parent" />
 
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/user_name"
-        android:textAppearance="?attr/textAppearanceHeadline6"/>
+    <Button
+      android:id="@+id/btn_delete"
+      style="@style/Widget.MaterialComponents.Button.TextButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:text="Delete"
+      android:textAllCaps="false"
+      android:textColor="@color/btnDelete"
+      app:icon="@drawable/ic_icon_delete"
+      app:iconGravity="textEnd"
+      app:iconTint="@color/btnDelete"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/repository_name"
-        android:textAppearance="?attr/textAppearanceBody2"
-        android:textColor="?android:attr/textColorSecondary"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="horizontal"
-      android:layout_weight="0.5"
-      android:gravity="center">
-
-      <Button
-        android:id="@+id/btn_details"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:icon="@drawable/ic_icon_details"
-        app:iconTint="@color/btnDetails"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:textColor="@color/btnDetails"
-        android:text="Details"
-        android:textAllCaps="false"
-        app:iconGravity="textEnd"/>
-
-      <Button
-        android:id="@+id/btn_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:icon="@drawable/ic_icon_delete"
-        app:iconTint="@color/btnDelete"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:textColor="@color/btnDelete"
-        android:text="Delete"
-        android:textAllCaps="false"
-        app:iconGravity="textEnd"/>
-    </LinearLayout>
-
-  </LinearLayout>
-
-
-</com.google.android.material.card.MaterialCardView>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

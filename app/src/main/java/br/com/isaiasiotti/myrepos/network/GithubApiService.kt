@@ -1,8 +1,8 @@
 package br.com.isaiasiotti.myrepos.network
 
+import br.com.isaiasiotti.myrepos.domain.RepositoryEntity
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -15,20 +15,20 @@ private val moshi = Moshi.Builder()
   .build()
 
 private val retrofit = Retrofit.Builder()
-  .addConverterFactory(MoshiConverterFactory.create(moshi))
   .baseUrl(BASE_URL)
+  .addConverterFactory(MoshiConverterFactory.create(moshi))
   .build()
 
 interface GithubApiService {
-  @GET("repos/{user}/{repository}")
+  @GET("repos/{user_param}/{repository_param}")
   suspend fun getRepository(
-    @Path("user") user: String,
-    @Path("repository") repository: String
-  ): Call<RepositoryProperty>
+    @Path("user_param") user_param: String,
+    @Path("repository_param") repository_param: String
+  ): RepositoryEntity
 }
 
 object GithubApi {
-  val retorfitService: GithubApiService by lazy {
+  val retrofitService: GithubApiService by lazy {
     retrofit.create(GithubApiService::class.java)
   }
 }
